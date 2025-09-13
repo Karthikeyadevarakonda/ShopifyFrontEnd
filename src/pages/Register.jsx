@@ -39,7 +39,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/auth/register/tenant",
+        "https://sbackend-3.onrender.com/api/auth/register/tenant",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/auth/verify-otp",
+        "https://sbackend-3.onrender.com/api/auth/verify-otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -114,10 +114,7 @@ const Register = () => {
           </h2>
 
           {!showOtpInput ? (
-            <form
-              className="grid grid-cols-1 gap-3"
-              onSubmit={handleRegister}
-            >
+            <form className="grid grid-cols-1 gap-3" onSubmit={handleRegister}>
               {[
                 { name: "email", placeholder: "Email", type: "email" },
                 { name: "password", placeholder: "Password", type: "password" },

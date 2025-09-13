@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8080/api/auth/forgot-password?email=${email}`,
+        `https://sbackend-3.onrender.com/api/auth/forgot-password?email=${email}`,
         { method: "POST" }
       );
 
@@ -44,7 +44,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/auth/reset-password",
+        "https://sbackend-3.onrender.com/api/auth/reset-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

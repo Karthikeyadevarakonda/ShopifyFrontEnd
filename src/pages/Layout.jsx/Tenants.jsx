@@ -3,7 +3,7 @@ import { Store, Eye, X } from "lucide-react";
 import { useTheme } from "../../contexts/ThemeContext";
 import toast, { Toaster } from "react-hot-toast";
 
-const API_BASE = "http://localhost:8080/api/tenants";
+const API_BASE = "https://sbackend-3.onrender.com/api/tenants";
 
 const Tenants = () => {
   const { isDarkMode, colors } = useTheme();
@@ -176,7 +176,10 @@ const Tenants = () => {
                 Tenant Details
               </h2>
               <button onClick={() => setShowViewModal(null)}>
-                <X className={isDarkMode ? "text-white" : "text-black"} size={20} />
+                <X
+                  className={isDarkMode ? "text-white" : "text-black"}
+                  size={20}
+                />
               </button>
             </div>
 
@@ -188,10 +191,18 @@ const Tenants = () => {
               >
                 {showViewModal.shopName}
               </p>
-              <p className={`${isDarkMode ? colors.textMuted : "text-gray-600"} break-words`}>
+              <p
+                className={`${
+                  isDarkMode ? colors.textMuted : "text-gray-600"
+                } break-words`}
+              >
                 Tenant ID: {showViewModal.tenantId}
               </p>
-              <p className={`${isDarkMode ? colors.textMuted : "text-gray-600"} break-words`}>
+              <p
+                className={`${
+                  isDarkMode ? colors.textMuted : "text-gray-600"
+                } break-words`}
+              >
                 Shopify URL: {showViewModal.shopifyBaseUrl}
               </p>
             </div>

@@ -47,7 +47,7 @@ const Dashboard = () => {
     try {
       const query = `?from=${fromDate}&to=${toDate}`;
       const response = await fetch(
-        `http://localhost:8080/api/tenant/${tenantData.tenantId}/dashboard${query}`,
+        `https://sbackend-3.onrender.com/api/tenant/${tenantData.tenantId}/dashboard${query}`,
         {
           headers: {
             Authorization: `${tenantData.tokenType} ${tenantData.accessToken}`,
@@ -73,14 +73,17 @@ const Dashboard = () => {
 
     setSyncing(true);
     try {
-      const response = await fetch("http://localhost:8080/api/tenant/sync", {
-        method: "POST",
-        headers: {
-          Authorization: `${tenantData.tokenType} ${tenantData.accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: tenantData.email }),
-      });
+      const response = await fetch(
+        "https://sbackend-3.onrender.com/api/tenant/sync",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `${tenantData.tokenType} ${tenantData.accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: tenantData.email }),
+        }
+      );
 
       if (!response.ok) throw new Error("Sync failed");
 

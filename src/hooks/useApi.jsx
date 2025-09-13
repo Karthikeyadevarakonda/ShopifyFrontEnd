@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function useApi(url) {
-  const BASE_URL = "http://localhost:8080/api";
+  const BASE_URL = "https://sbackend-3.onrender.com";
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
