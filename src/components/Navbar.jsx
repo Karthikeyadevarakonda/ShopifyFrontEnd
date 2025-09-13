@@ -97,9 +97,7 @@ const Navbar = () => {
             alt="Shopify Logo"
             className="h-7 w-7 sm:h-9 sm:w-9 md:h-11 md:w-11"
           />
-          <span className="text-sm sm:text-base md:text-lg font-semibold">
-            Shopify
-          </span>
+          <span className="text-base md:text-lg font-semibold">Shopify</span>
         </Link>
 
         {/* Desktop Menu */}
