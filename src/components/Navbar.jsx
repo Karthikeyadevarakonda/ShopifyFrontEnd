@@ -22,6 +22,7 @@ const Navbar = () => {
   const [activeLinkPos, setActiveLinkPos] = useState({ top: 0, height: 0 });
   const linkRefs = useRef([]);
 
+  // Scroll detection and auth state
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
@@ -32,8 +33,8 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Update active link position for sliding indicator
   useEffect(() => {
-    // Update active link position for sliding underline
     const activeIndex = mobileLinks.findIndex((item) =>
       item.path === "/logout" ? false : location.pathname === item.path
     );
@@ -47,16 +48,6 @@ const Navbar = () => {
       });
     }
   }, [location.pathname, menuOpen]);
-
-  const linkColor = scrolled
-    ? "text-white/80 hover:text-lime-400"
-    : colors.textSecondary;
-  const logoColor = scrolled ? "text-white" : colors.text;
-  const shadowClass = scrolled ? "shadow-xl" : "shadow-md";
-  const hamburgerColor = "bg-lime-400";
-  const navbarBg = scrolled
-    ? "bg-gradient-to-r from-gray-900/90 via-gray-800/80 to-gray-900/90 backdrop-blur-md"
-    : colors.primary;
 
   // Mobile links configuration
   const mobileLinks = [
@@ -83,11 +74,23 @@ const Navbar = () => {
     },
   ].filter(Boolean);
 
+  const linkColor = scrolled
+    ? "text-white/80 hover:text-lime-400"
+    : colors.textSecondary;
+  const logoColor = scrolled ? "text-white" : colors.text;
+  const shadowClass = scrolled ? "shadow-xl" : "shadow-md";
+  const hamburgerColor = "bg-lime-400";
+  const navbarBg = scrolled
+    ? "bg-gradient-to-r from-gray-900/90 via-gray-800/80 to-gray-900/90 backdrop-blur-md"
+    : colors.primary;
+
   return (
     <>
+      {/* Navbar */}
       <nav
         className={`fixed top-0 left-0 w-full flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 transition-all duration-500 z-50 ${navbarBg} ${shadowClass}`}
       >
+        {/* Logo */}
         <Link
           to="/"
           className={`flex items-center gap-1 sm:gap-2 text-lg sm:text-2xl font-bold transition-colors duration-300 ${logoColor}`}
@@ -134,10 +137,11 @@ const Navbar = () => {
           )}
         </div>
 
+        {/* Right Controls */}
         <div className="flex items-center gap-2 sm:gap-4">
           <ThemeToggle />
 
-          {/* Hamburger */}
+          {/* Hamburger for Mobile */}
           <button
             className="lg:hidden flex flex-col justify-center items-center w-7 h-7 sm:w-8 sm:h-8 focus:outline-none"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -165,6 +169,7 @@ const Navbar = () => {
       <AnimatePresence>
         {menuOpen && (
           <>
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.4 }}
@@ -174,14 +179,15 @@ const Navbar = () => {
               onClick={() => setMenuOpen(false)}
             />
 
+            {/* Drawer */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.4 }}
-              className={`fixed top-0 right-0 h-full w-64 sm:w-72 shadow-2xl flex flex-col ${colors.primary} ${colors.text} z-50`}
+              className={`fixed top-0 right-0 h-full w-64 sm:w-72 shadow-2xl flex flex-col bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 z-50`}
             >
-              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/20">
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
                 <span className="text-lg sm:text-xl font-bold">Menu</span>
                 <button onClick={() => setMenuOpen(false)}>
                   <FiX size={20} className="sm:w-6 sm:h-6" />
@@ -203,14 +209,13 @@ const Navbar = () => {
 
                 {mobileLinks.map((item, idx) => {
                   const isActive =
-                    item.path === "/logout"
-                      ? false
-                      : location.pathname === item.path;
-
+                    item.path !== "/logout" && location.pathname === item.path;
                   const baseClasses = `flex items-center gap-3 sm:gap-4 p-2 rounded transition-colors duration-200 relative z-10`;
+                  const inactiveClasses =
+                    "text-gray-800 dark:text-gray-100 hover:text-lime-400";
                   const activeClasses = isActive
                     ? "text-black dark:text-white font-semibold"
-                    : "hover:text-lime-400";
+                    : inactiveClasses;
 
                   if (item.path === "/logout") {
                     return (
@@ -242,7 +247,8 @@ const Navbar = () => {
                 })}
               </div>
 
-              <div className="mt-auto border-t border-white/20 p-4 sm:p-6">
+              {/* Theme toggle at bottom */}
+              <div className="mt-auto border-t border-gray-200 dark:border-gray-700 p-4 sm:p-6">
                 <ThemeToggle />
               </div>
             </motion.div>
