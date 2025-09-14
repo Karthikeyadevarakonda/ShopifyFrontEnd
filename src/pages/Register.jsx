@@ -39,7 +39,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        "https://sbackend-3.onrender.com/api/auth/register/tenant",
+        "https://sbackend-1-rnib.onrender.com/api/auth/register/tenant",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        "https://sbackend-3.onrender.com/api/auth/verify-otp",
+        "https://sbackend-1-rnib.onrender.com/api/auth/verify-otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
