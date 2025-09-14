@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import toast, { Toaster } from "react-hot-toast";
 import { useTheme } from "../../contexts/ThemeContext"; // assuming you have a ThemeContext
+import DashboardShimmer from "../../shimmers/DashboardShimmer";
 
 // Utility to format date as YYYY-MM-DD
 const formatDate = (date) => date.toISOString().split("T")[0];
@@ -106,7 +107,7 @@ const Dashboard = () => {
     fetchDashboard();
   }, [fromDate, toDate]);
 
-  if (loading) return <div className="text-center py-10">Loading...</div>;
+  if (loading) return <DashboardShimmer isDarkMode={isDarkMode} />;
   if (!data) return <div className="text-center py-10">No data available</div>;
 
   const revenueTrend = Object.entries(data.revenueTrend || {}).map(

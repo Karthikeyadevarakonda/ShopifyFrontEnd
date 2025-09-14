@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Store, Eye, X } from "lucide-react";
 import { useTheme } from "../../contexts/ThemeContext";
 import toast, { Toaster } from "react-hot-toast";
+import TenantsShimmer from "../../shimmers/TenantsShimmer";
 
 const API_BASE = "https://sbackend-1-rnib.onrender.com/api/tenants";
 
@@ -48,7 +49,7 @@ const Tenants = () => {
     }
   }, []);
 
-  if (loading) return <div className="p-6">Loading tenants...</div>;
+  if (loading) return <TenantsShimmer isDarkMode={isDarkMode} />;
 
   if (!tenantData || tenantData.role !== "isAdmin") {
     return (

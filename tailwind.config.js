@@ -20,6 +20,15 @@ module.exports = {
         },
         // add other tokens like primary, secondary if needed
       },
+      keyframes: {
+        shimmer: {
+          "0%": { transform: "translateX(-150%)" },
+          "100%": { transform: "translateX(150%)" },
+        },
+      },
+      animation: {
+        shimmer: "shimmer 1.5s infinite",
+      },
     },
   },
   plugins: [],
