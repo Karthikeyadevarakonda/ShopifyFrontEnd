@@ -3,7 +3,7 @@ import { Store, Eye, X } from "lucide-react";
 import { useTheme } from "../../contexts/ThemeContext";
 import toast, { Toaster } from "react-hot-toast";
 
-const API_BASE = "https://sbackend-3.onrender.com/api/tenants";
+const API_BASE = "https://sbackend-1-rnib.onrender.com/api/tenants";
 
 const Tenants = () => {
   const { isDarkMode, colors } = useTheme();
@@ -21,11 +21,6 @@ const Tenants = () => {
 
   // Fetch tenants
   const fetchTenants = async () => {
-    if (!tenantData) {
-      toast.error("No auth token found. Please login again.");
-      setLoading(false);
-      return;
-    }
     try {
       const res = await fetch(API_BASE, { headers });
       if (!res.ok) throw new Error("Failed to fetch tenants");
@@ -40,10 +35,28 @@ const Tenants = () => {
   };
 
   useEffect(() => {
-    fetchTenants();
+    if (!tenantData) {
+      toast.error("No auth token found. Please login again.");
+      setLoading(false);
+      return;
+    }
+
+    if (tenantData.role === "isAdmin") {
+      fetchTenants();
+    } else {
+      setLoading(false); // skip fetching tenants for non-admins
+    }
   }, []);
 
   if (loading) return <div className="p-6">Loading tenants...</div>;
+
+  if (!tenantData || tenantData.role !== "isAdmin") {
+    return (
+      <div className="p-6 text-center text-gray-500">
+        You don’t have access to view tenants.
+      </div>
+    );
+  }
 
   const truncateUrl = (url) => {
     try {
